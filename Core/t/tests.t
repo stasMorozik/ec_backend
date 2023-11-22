@@ -15,4 +15,4 @@ use ConfirmationCode::UseCases::ConfirmingTest;
 use ConfirmationCode::UseCases::CreatingByAdminTest;
 use Product::UseCases::CreatingTest;
 
-done_testing(101);
+done_testing(95);

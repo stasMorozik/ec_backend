@@ -33,8 +33,8 @@ my $verify_role = sub ($user_entity) {
   Core::User::Methods::VerificationRole->verify($user_entity);
 };
 
-sub create_by_admin($self, $args) {  
-  &$auth_user($self, { token => $args->{token} })->flat_map(sub ($user_entity) {
+sub create_by_admin($self, $args) {
+  &$auth_user($self, $args->{token})->flat_map(sub ($user_entity) {
     &$verify_role($user_entity)->flat_map(sub {
       $self->create({ email => $args->{email} });
     });

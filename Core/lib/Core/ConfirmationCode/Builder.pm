@@ -8,6 +8,18 @@ use Core::ConfirmationCode::Entity;
 use Core::Shared::Validators::Email;
 use Core::ConfirmationCode::Validators::Code;
 
+my $upper_limit = sub {
+  Core::ConfirmationCode::Validators::Code->upper_limit();
+};
+
+my $lower_limit = sub { 
+  Core::ConfirmationCode::Validators::Code->lower_limit();
+};
+
+my $code = sub {
+  int(rand(&$upper_limit() - &$lower_limit())) + &$lower_limit();
+};
+
 my $entity = sub {
   my $ug = Data::UUID->new();
 
@@ -16,7 +28,7 @@ my $entity = sub {
       created => time() + 86400,
       email => '',
       confirmed => 0,
-      code => 0
+      code => &$code()
   }));
 };
 
@@ -28,19 +40,9 @@ my $build_email = sub ($entity, $email) {
   });
 };
 
-my $build_code = sub ($entity, $code) {
-  Core::ConfirmationCode::Validators::Code->valid($code)->flat_map(sub {
-    $entity->{code} = $code;
-
-    right($entity);
-  });
-};
-
 sub build($self, $args) {
-  &$entity(sub ($code_entity) {
-    &$build_email($code_entity, $args->{email})->flat_map(sub {
-      &$build_code($code_entity, $args->{code});
-    });
+  &$entity()->flat_map(sub ($code_entity) {
+    &$build_email($code_entity, $args->{email});
   });
 }
 

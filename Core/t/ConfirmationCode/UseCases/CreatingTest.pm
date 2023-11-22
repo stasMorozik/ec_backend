@@ -88,10 +88,7 @@ package NotifierAdapter {
 my %codes = ();
 
 my $either = Core::ConfirmationCode::Builder->build({
-  email => 'georg@gmail.com',
-  code => int(rand(
-    Core::ConfirmationCode::Validators::Code->upper_limit() - Core::ConfirmationCode::Validators::Code->lower_limit()
-  )) + Core::ConfirmationCode::Validators::Code->lower_limit()
+  email => 'georg@gmail.com'
 });
 
 $codes{'georg@gmail.com'} = $either->value;

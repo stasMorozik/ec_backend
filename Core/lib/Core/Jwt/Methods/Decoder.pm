@@ -5,7 +5,7 @@ use Data::Monad::Either qw/right left/;
 use JSON::WebToken qw/decode_jwt/;
 use Try::Tiny;
 
-sub decode($self, $args) {
+sub decode($self, $args) {  
   unless ($args->{access_secret}) {
     return left('Invalid access secret');
   }

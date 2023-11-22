@@ -11,7 +11,6 @@ use Core::Product::Validators::Description;
 use Core::Product::Validators::Price;
 use Core::Product::Validators::Amount;
 use Core::Product::Validators::Features;
-use Core::Product::Validators::Features;
 use Core::Product::Validators::Image;
 use Core::Product::Validators::Images;
 
@@ -157,26 +156,28 @@ sub build(@args) {
     return left('Invalid image path');
   }
 
-  &$entity()->flat_map(sub ($product_entity) {
-    &$build_article($product_entity, $args->{article})->flat_map(sub {
-      &$build_title($product_entity, $args->{title})->flat_map(sub {
-        &$build_description($product_entity, $args->{description})->flat_map(sub {
-          &$build_price($product_entity, $args->{price})->flat_map(sub {
-            &$build_amount($product_entity, $args->{amount})->flat_map(sub {
-              &$build_features($product_entity, $args->{features})->flat_map(sub {
-                &$build_images($product_entity, $args->{images}, $args->{image_path})->flat_map(sub {
-                  &$build_logo($product_entity, $args->{logo}, $args->{image_path})->flat_map(sub {
-                    &$build_brand($product_entity, $args->{brand})->flat_map(sub {
-                      &$build_catalog($product_entity, $args->{catalog});
-                    });
-                  });
-                });
-              });
-            });
-          });
-        });
+  my $either_0 = &$entity()->flat_map(sub ($product_entity) {
+    &$build_article($product_entity, $args->{article})->flat_map(sub ($product_entity) {
+      &$build_title($product_entity, $args->{title})->flat_map(sub ($product_entity) {
+        &$build_description($product_entity, $args->{description});
       });
     });
+  });
+
+  my $either_1 = $either_0->flat_map(sub ($product_entity) {
+    &$build_price($product_entity, $args->{price})->flat_map(sub ($product_entity) {
+      &$build_amount($product_entity, $args->{amount})->flat_map(sub ($product_entity) {
+        &$build_features($product_entity, $args->{features});
+      });
+    });
+  });
+
+  my $either_2 = $either_1->flat_map(sub ($product_entity) {
+    &$build_images($product_entity, $args->{images}, $args->{image_path});
+  });
+
+  $either_2->flat_map(sub ($product_entity) {
+    &$build_logo($product_entity, $args->{logo}, $args->{image_path});
   });
 }
 

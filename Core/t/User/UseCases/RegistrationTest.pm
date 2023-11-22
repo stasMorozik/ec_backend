@@ -120,10 +120,7 @@ my $use_case = Core::User::UseCases::Registration->new({
 });
 
 my $either = Core::ConfirmationCode::Builder->build({
-  email => 'georg@gmail.com',
-  code => int(rand(
-    Core::ConfirmationCode::Validators::Code->upper_limit() - Core::ConfirmationCode::Validators::Code->lower_limit()
-  )) + Core::ConfirmationCode::Validators::Code->lower_limit()
+  email => 'georg@gmail.com'
 });
 
 Core::ConfirmationCode::Methods::Confirmation->confirm({
