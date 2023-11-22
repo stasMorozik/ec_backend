@@ -1,0 +1,15 @@
+FROM perl:5.36.0
+
+WORKDIR /tests
+RUN cpan cpanm
+
+COPY ./Core .
+RUN cpanm --installdeps .
+RUN perl ./Makefile.PL
+RUN make
+RUN make test
+RUN make install
+
+COPY ./PostgreSQLAdapters .
+RUN cpanm --installdeps .
+CMD ["prove", "./t/tests.t"]

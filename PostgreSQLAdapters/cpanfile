@@ -1,0 +1,14 @@
+requires 'perl', '5.036';
+
+on build => sub {
+  requires 'Data::Monad::Either';
+  requires 'Mojo::Pg';
+  requires 'ExtUtils::MakeMaker';
+};
+
+on test => sub {
+  requires 'Dotenv';
+  requires 'Test::More';
+  requires 'Data::Dump';
+  requires 'lib::relative';
+};

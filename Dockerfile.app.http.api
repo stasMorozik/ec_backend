@@ -1,0 +1,29 @@
+FROM perl:5.36.0
+
+WORKDIR /app
+RUN cpan cpanm
+
+COPY ./Core .
+RUN cpanm --installdeps .
+RUN perl ./Makefile.PL
+RUN make
+RUN make install
+
+COPY ./PostgreSQLAdapters .
+RUN cpanm --installdeps .
+RUN perl ./Makefile.PL
+RUN make
+RUN make install
+
+COPY ./AMQPAdapters .
+RUN cpanm --installdeps .
+RUN perl ./Makefile.PL
+RUN make
+RUN make install
+
+COPY ./Apps/Http/Api .
+RUN cpanm --installdeps .
+
+EXPOSE 3000
+
+CMD ["morbo", "./app.pl"]

@@ -1,0 +1,7 @@
+requires 'perl', '5.036';
+
+on build => sub {
+  requires 'Mojolicious';
+  requires 'Mojo::JSON';
+  requires 'Beam::Wire';
+};

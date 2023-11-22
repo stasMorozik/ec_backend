@@ -1,0 +1,7 @@
+FROM perl:5.36.0
+
+WORKDIR /tests
+RUN cpan cpanm
+COPY ./Core .
+RUN cpanm --installdeps .
+CMD ["prove", "./t/tests.t"]
