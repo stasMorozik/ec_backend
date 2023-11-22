@@ -126,7 +126,6 @@ $either = Core::User::Builder->build({
   role => 'Administrator'
 });
 
-
 $either = Core::User::Methods::VerificationRole->verify($either->value);
 
 ok($either->is_right() eq 1);

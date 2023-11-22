@@ -24,7 +24,7 @@ my $build_email = sub ($entity, $email) {
   Core::Shared::Validators::Email->valid($email)->flat_map(sub {
     $entity->{email} = $email;
 
-    right(1);
+    right($entity);
   });
 };
 
@@ -32,7 +32,7 @@ my $build_code = sub ($entity, $code) {
   Core::ConfirmationCode::Validators::Code->valid($code)->flat_map(sub {
     $entity->{code} = $code;
 
-    right(1);
+    right($entity);
   });
 };
 

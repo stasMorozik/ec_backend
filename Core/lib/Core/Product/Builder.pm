@@ -41,7 +41,7 @@ my $build_title = sub ($entity, $title) {
   Core::Product::Validators::Title->valid($title)->flat_map(sub {
     $entity->{title} = $title;
 
-    right(1);
+    right($entity);
   });
 };
 
@@ -49,7 +49,7 @@ my $build_description = sub ($entity, $description) {
   Core::Product::Validators::Description->valid($description)->flat_map(sub {
     $entity->{description} = $description;
 
-    right(1);
+    right($entity);
   });
 };
 
@@ -57,7 +57,7 @@ my $build_price = sub ($entity, $price) {
   Core::Product::Validators::Price->valid($price)->flat_map(sub {
     $entity->{price} = $price;
 
-    right(1);
+    right($entity);
   });
 };
 
@@ -65,7 +65,7 @@ my $build_amount = sub ($entity, $amount) {
   Core::Product::Validators::Amount->valid($amount)->flat_map(sub {
     $entity->{amount} = $amount;
 
-    right(1);
+    right($entity);
   });
 };
 
@@ -73,7 +73,7 @@ my $build_features = sub ($entity, $features) {
   Core::Product::Validators::Features->valid($features)->flat_map(sub {
     $entity->{features} = $features;
     
-    right(1);
+    right($entity);
   });
 };
 
@@ -96,7 +96,7 @@ my $build_images = sub {
       });
     }
 
-    right(1);
+    right($entity);
   });
 };
 
@@ -116,7 +116,7 @@ my $build_logo = sub {
       id => $ug->to_string( $ug->create() )
     };
 
-    right(1);
+    right($entity);
   });
 };
 
@@ -127,7 +127,7 @@ my $build_article = sub ($entity, $article) {
 
   $entity->{article} = $article;
 
-  right(1);
+  right($entity);
 };
 
 my $build_brand = sub ($entity, $brand) {
@@ -137,7 +137,7 @@ my $build_brand = sub ($entity, $brand) {
 
   $entity->{brand} = $brand;
 
-  right(1);
+  right($entity);
 };
 
 my $build_catalog = sub ($entity, $catalog) {
@@ -147,7 +147,7 @@ my $build_catalog = sub ($entity, $catalog) {
 
   $entity->{catalog} = $catalog;
 
-  right(1);
+  right($entity);
 };
 
 sub build(@args) {

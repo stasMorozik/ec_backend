@@ -24,7 +24,7 @@ my $build_name = sub ($entity, $name) {
   Core::Catalog::Validators::Name->valid($name)->flat_map(sub {
     $entity->{name} = $name;
 
-    right(1);
+    right($entity);
   });
 };
 

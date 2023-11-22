@@ -23,14 +23,14 @@ my $entity = sub {
 my $build_name = sub ($entity, $name) {
   Core::Brand::Validators::Name->valid($name)->flat_map(sub () {
     $entity->{name} = $name;
-    right(1);
+    right($entity);
   });
 };
 
 my $build_description = sub ($entity, $description) {
   Core::Brand::Validators::Description->valid($description)->flat_map(sub {
     $entity->{description} = $description;
-    right(1);
+    right($entity);
   });
 };
 

@@ -3,6 +3,7 @@ package Core::User::Methods::VerificationRole;
 use v5.36;
 use Core::User::Validators::Role;
 use Data::Monad::Either qw/right left/;
+use Data::Dump qw(dump);
 
 sub verify($self, $entity) {
   unless ( UNIVERSAL::isa($entity, 'Core::User::Entity') ) {

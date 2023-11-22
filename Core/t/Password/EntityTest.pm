@@ -11,7 +11,7 @@ require_ok('Core::Password::Methods::Verification');
 
 my $either = Core::Password::Builder->build({
   email => 'georg@gmail.com',
-  password => '1some_password!'
+  password => '12345'
 });
 
 ok($either->is_right() eq 1);

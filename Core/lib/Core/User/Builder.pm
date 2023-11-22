@@ -32,7 +32,7 @@ my $build_email = sub ($entity, $email) {
   Core::Shared::Validators::Email->valid($email)->flat_map(sub {
     $entity->{email} = $email;
 
-    right(1);
+    right($entity);
   });
 };
 
@@ -40,7 +40,7 @@ my $build_phone = sub ($entity, $phone) {
   Core::User::Validators::Phone->valid($phone)->flat_map(sub {
     $entity->{phone} = $phone;
 
-    right(1);
+    right($entity);
   });
 };
 
@@ -48,7 +48,7 @@ my $build_name = sub ($entity, $name) {
   Core::User::Validators::Name->valid($name)->flat_map(sub {
     $entity->{name} = $name;
 
-    right(1);
+    right($entity);
   });
 };
 
@@ -58,7 +58,7 @@ my $build_surname = sub ($entity, $surname) {
   }, sub {
     $entity->{surname} = $surname;
 
-    right(1);
+    right($entity);
   });
 };
 
@@ -66,7 +66,7 @@ my $build_role = sub ($entity, $role) {
   Core::User::Validators::Role->valid($role)->flat_map(sub {
     $entity->{role} = $role;
 
-    right(1);
+    right($entity);
   });
 };
 

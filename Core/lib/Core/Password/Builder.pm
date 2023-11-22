@@ -28,7 +28,7 @@ my $build_email = sub ($entity, $email) {
   Core::Shared::Validators::Email->valid($email)->flat_map(sub {
     $entity->{email} = $email;
 
-    right(1);
+    right($entity);
   });
 };
 
@@ -45,7 +45,7 @@ my $build_password = sub ($entity, $password) {
 
     $entity->{password} = $hasher->generate($password);
 
-    right(1);
+    right($entity);
   });
 };
 
